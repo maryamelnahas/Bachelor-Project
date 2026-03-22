@@ -1,0 +1,263 @@
+Act as an expert university Computer Science teaching assistant. 
+
+My students were assigned a Java programming task. 
+[Write a program which prints multiplication tables in the following format:
+
+1x1=1
+1x2=2
+.
+.
+9x8=72
+9x9=81
+Input
+No input.
+
+Output
+1x1=1
+1x2=2
+.
+.
+9x8=72
+9x9=81]
+
+I have an AI model that grouped several failing student submissions into a single cluster based on structural similarities in their Abstract Syntax Trees. The model flagged the specific recursive subtree that it believes is the root cause of the error.
+
+Your task is to analyze these 3 submissions from the same cluster, focus on the flagged subtrees, and map their shared cognitive flaw to the established taxonomy of programming misconceptions provided below.
+
+=========================================
+THE LITERATURE TAXONOMY:
+
+### Category: Calls ###
+ - [ID: 38] A return values does not need to be stored (even if one needs it later).
+ - [ID: 39] A method can be invoked only once.
+ - [ID: 40] Numbers or numeric constants are the only appropriate actual parameters corresponding to integer formal parameters.
+ - [ID: 41] Difficulties distinguishing between actual and formal parameters. Confusion over where parameter values come from.
+ - [ID: 42] Difficulties understanding the invocation of a method from another method.
+ - [ID: 43] Confusion over where return values go.
+ - [ID: 44] Parameter passing forms direct name-based procedure-to-procedure links between variables with the same name (in call and signature).
+ - [ID: 45] Parameter passing forms direct procedure-to-procedure links between variables with different names (in call and signature).
+ - [ID: 46] Parameter passing requires different variable names in call and signature.
+ - [ID: 47] Subprograms can (routinely) use the variables of calling subprograms.
+ - [ID: 48] Cannot use globals in subprograms when they have not been passed as parameters.
+ - [ID: 49] When the value of a global variable is changed in a procedure, the new value will not be available to the main program unless it is explicitly passed to it.
+ - [ID: 50] A function (always) changes its input variable to become the output.
+ - [ID: 51] Expressions (not their values) are passed as parameters.
+ - [ID: 52] Argument expressions cause changes in existing variables.
+ - [ID: 53] Upon return, the value of a variable changes to correspond to match a previously given parameter.
+
+### Category: Ctrl ###
+ - [ID: 23] Difficulties in understanding the sequentiality of statements.
+ - [ID: 24] Code after 􀀀 statement is not executed if the clause is.
+ - [ID: 25] 􀀀 statement gets executed as soon as its condition becomes true.
+ - [ID: 26] A false condition ends program if no branch.
+ - [ID: 27] Both and branches are executed.
+ - [ID: 28] The branch is always executed.
+ - [ID: 29] Using is optional (the next statement is always the branch)
+ - [ID: 30] Adjacent code executes within loop.
+ - [ID: 31] Control goes back to start when condition is false.
+ - [ID: 32] Difficulty in understanding automated changes to 􀀀 loop control variables.
+ - [ID: 33] loops terminate as soon as condition changes to false.
+ - [ID: 34] 􀀀 loop control variables do not have values inside the loop or their values can be arbitrarily changed.
+ - [ID: 35] Print statements are always executed, irrespective of branching statements.
+ - [ID: 36] All statements of a program get executed at least once.
+ - [ID: 37] Subprogram code is executed according to the order in which the subprograms are defined.
+
+### Category: General ###
+ - [ID: 1] The computer knows the intention of the program or of a piece of code, and acts accordingly.
+ - [ID: 2] The computer is able to deduce the intention of the programmer.
+ - [ID: 3] Values are updated automatically according to a logical context.
+ - [ID: 4] The system does not allow unreasonable operations.
+ - [ID: 5] Difficulties understanding the lifetime of values.
+ - [ID: 6] Difficulties with telling apart the static and dynamic aspects of programs.
+ - [ID: 7] The machine understands English.
+ - [ID: 8] Magical parallelism: several lines of a (simple nonconcurrent) program can be simultaneously active or known.
+
+### Category: Methods ###
+ - [ID: 124] Objects ‘know’ which methods are operating on them (rather than method calls ‘knowing’ which object they operate on).
+ - [ID: 125] Cannot have methods with the same name in different classes.
+ - [ID: 126] The dot operator can only be applied to methods.
+ - [ID: 127] You can define a method that replaces the object itself.
+ - [ID: 128] You can define a method that destroys the object itself.
+ - [ID: 129] You can define a method that divides the object into two different objects.
+ - [ID: 130] Methods can only do assignment.
+ - [ID: 131] Methods from the simple class are not used; instead, new equivalent methods are defined and duplicated in the composed class.
+ - [ID: 132] You can invoke a method on an object only once.
+ - [ID: 133] Difficulties in understanding that a method can be invoked on any object of the class.
+ - [ID: 134] Methods can only be invoked on objects of the composed class, not on objects of the simple class defined as values in its attributes.
+ - [ID: 135] After a composed class is defined, new methods cannot be defined in the simple class.
+ - [ID: 136] A (Java) method must always be invoked on an explicit object.
+ - [ID: 137] Static and dynamic existence of methods mixed up.
+ - [ID: 138] Methods that are declared in a simple class have to be declared again in a composed class for each of the simple objects.
+
+### Category: Misc ###
+ - [ID: 150] Difficulties understanding the effect of input function calls on execution.
+ - [ID: 151] Confusion between an array and its cell.
+ - [ID: 152] Difficulties with dealing with 2D array subscripts and dimensions.
+ - [ID: 153] Difficulties with arrays containing indices as data.
+ - [ID: 154] Values of conditional expressions get printed out.
+ - [ID: 155] Numbers are just numbers. (Why have 􀀀 and separately?)
+ - [ID: 156] A type is a set of constraints on values.
+ - [ID: 157] Types can change on the fly (in Java).
+ - [ID: 158] Confusion between data in memory and data on screen.
+ - [ID: 159] The computer keeps what has been printed in memory (as part of state?).
+ - [ID: 160] Confusing textual representations with each other, e.g., the string "456" with the number.
+ - [ID: 161] Boolean values are just something used in conditionals and not data comparable to numbers or strings.
+ - [ID: 162] A loop control variable constrains the values that can be input within the loop.
+
+### Category: ObjClass ###
+ - [ID: 79] Confusion between a class and its instance.
+ - [ID: 80] An object is a subset of a class. / A class is a collection of objects.
+ - [ID: 81] An object is a subtype of a class.
+ - [ID: 82] A set (such as "team" or "the species of birds") cannot be a class.
+ - [ID: 83] Constructors can include only assignment statements to initialize attributes.
+ - [ID: 84] Instantiation involves only the execution of the constructor method body, not the allocation of memory.
+ - [ID: 85] Difficulties understanding the empty constructor.
+ - [ID: 86] Initializing an attribute with a constant as part of its declaration causes confusion in distinguishing between a class and an object.
+ - [ID: 87] Initializing an attribute with a constant within the constructor declaration causes confusion in distinguishing between a class and an object.
+ - [ID: 88] Invocation of the constructor method can replace its definition.
+ - [ID: 89] Difficulties in understanding where objects of a simple class are created before the creation of the object of a composed class.
+ - [ID: 90] Difficulties understanding objects if their attributes are not explicitly initialized.
+ - [ID: 91] Objects are created by themselves, without explicit instructions to create them.
+ - [ID: 92] Declaring a variable also creates an object.
+ - [ID: 93] You can define a non-constructor (Java) method to create a new object.
+ - [ID: 94] A textual representation of an object is a reference to the object.
+ - [ID: 95] There is no need to invoke the constructor method, because its definition is sufficient for object creation.
+ - [ID: 96] If objects of a simple class already exist, there is no need to create the object of a composed class that builds on them.
+ - [ID: 97] If the object attributes are initialized in the class declaration, there is no need to create objects.
+ - [ID: 98] The creation of an object of a composed class automatically creates objects of the simple class that appear as attributes of the composed class.
+
+### Category: ObjState ###
+ - [ID: 99] During a method call, an object attribute is duplicated as a local variable. Assignments update both.
+ - [ID: 100] During a method call, an object attribute is duplicated as a local variable. The local variable is initialized from the object, updated by the method, then returned to object at end.
+ - [ID: 101] During a method call, an object attributes is duplicated as a local variable, which is initialized to a default value (e.g., zero). Assignments only affect the local variable, not the object.
+ - [ID: 102] Parameters belong to the called object.
+ - [ID: 103] Local variables belong to the called object.
+ - [ID: 104] A main method’s local variables belong to the called object.
+ - [ID: 105] An object can only hold instance variables of a single type.
+ - [ID: 106] No object attributes within objects; they only exist locally during method calls.
+ - [ID: 107] An object cannot be the value of an attribute.
+ - [ID: 108] Attributes of composed classes include object attributes from the simple classes instead of the objects.
+ - [ID: 109] Attributes of composed classes include object attributes from the simple classes in addition to the objects.
+ - [ID: 110] An object is a wrapper for a single variable. The object is equated with the variable.
+ - [ID: 111] Attributes in a simple class are automatically replicated in the composed class by transferring its meaning.
+ - [ID: 112] To change the value of an attribute of an object of a simple class that is the value of an attribute in an object of a composed class, you need to construct a new object.
+ - [ID: 113] Difficulty grasping what the properties are that represent an object’s state.
+ - [ID: 114] The name of the variable that the object was most recently assigned to is a part of an object’s state.
+ - [ID: 115] Storing an object in memory means storing a copy of the program code of the object’s class.
+ - [ID: 116] Storing an object means storing the constructor parameters given upon object creation. These parameter values unambiguously define the object. (Methods do not affect state.).
+ - [ID: 117] You can define a (Java) method that adds an attribute to the class.
+ - [ID: 118] Objects of a simple class, used as values of the attributes of a composed class, have to be identical.
+ - [ID: 119] In a composed (Java) class, you can develop a method that adds an attribute of a simple class to the composed class.
+ - [ID: 120] In a composed (Java) class, you can develop a method that removes an attribute of a simple class from the composed class.
+ - [ID: 121] Objects of the same class cannot have equal attribute values.
+ - [ID: 122] Attributes of the simple class must be directly accessed from the composed class instead of through an interface.
+ - [ID: 123] Objects are allocated the same amount of memory regardless of definition and instantiation.
+
+### Category: OtherOOP ###
+ - [ID: 139] There is no need for mutators and accessors for attributes that are of a simple class within a composed class.
+ - [ID: 140] Object lookup involves searching through each object in memory for a suitable ID.
+ - [ID: 141] Objects are stored in folders on the hard drive and lookup means searching through them.
+ - [ID: 142] An object is just a piece of code (and not a dynamic actor at runtime).
+ - [ID: 143] An object is just a record.
+ - [ID: 144] An object is a ‘way of working’ consisting of action: expressions, return expressions etc. It has a control flow. No concept of state.
+ - [ID: 145] Difficulties in understanding how one class recognizes another.
+ - [ID: 146] Difficulties in understanding inheriting functionality (methods).
+ - [ID: 147] Difficulties in understanding how the computer knows what class attributes and methods are.
+ - [ID: 148] Assignment confused with subclassing.
+ - [ID: 149] Inheritance hierarchies express the parts of composite classes.
+
+### Category: Rec ###
+ - [ID: 54] Null model of recursion: recursion is impossible.
+ - [ID: 55] Active model: only the ‘active aspect’ of recursion understood, not return values.
+ - [ID: 56] Step model: single- or two-step recursion, but no more.
+ - [ID: 57] Return value model: each instantiation first produces a value, before the next one is started; then all values are combined to get the result
+ - [ID: 58] Passive model: active part not understood, only the combinatorics of the return values.
+ - [ID: 59] Recursion is merely a programming construct used as a template in certain kinds of programs; runtime behavior is ‘magic’.
+ - [ID: 60] Recursion is perceived as an algebra problem.
+ - [ID: 61] Looping model of recursion (single-instantiation); recursion is merely a construct for producing repetition, not understood as self-reference.
+
+### Category: Refs ###
+ - [ID: 62] Even primitive values (in Java) are handled through references.
+ - [ID: 63] The variables for storing and assigning primitive values are fundamentally different from the variables used for storing objects (in Java).
+ - [ID: 64] A variable associated with an object is merely a name which can be used to manipulate an object or ’thing’ in a program.
+ - [ID: 65] A (non-primitive Java) variable does not hold a reference but a set of object properties.
+ - [ID: 66] Assigning an object means ‘sending’ an object (or a copy) to a variable.
+ - [ID: 67] Assigning to an object causes it to become equal to the assigned object.
+ - [ID: 68] Assigning to an object means that (some) instance variables get new values from the assigned object.
+ - [ID: 69] Confusion between an instance variable such as "name" and a variable referring to the object.
+ - [ID: 70] Two objects with the same value for a "name" attribute are the same object.
+ - [ID: 71] A value of an instance variable such as "name" replaces reference as a value of an attribute.
+ - [ID: 72] An object is represented (in program state) by only the value of a particular identifying instance variable such as "name".
+ - [ID: 73] A variable that refers to an object uniquely specifies the object for all time.
+ - [ID: 74] Once a variable references an object, it will always reference that object.
+ - [ID: 75] Two different variables must refer to two different objects.
+ - [ID: 76] Two objects of the same class with the same state are the same object.
+ - [ID: 77] Two objects can have the same identifier if there is any difference in the values of their attributes.
+ - [ID: 78] Objects know what refers to them. References point in opposite direction (to referring object attribute, not from there).
+
+### Category: VarAssign ###
+ - [ID: 9] A variable can hold multiple values at a time / ‘remembers’ old values.
+ - [ID: 10] Variables always receive a particular default value upon creation.
+ - [ID: 11] Primitive assignment works in opposite direction.
+ - [ID: 12] Primitive assignment works both directions (swaps).
+ - [ID: 13] Limited understanding of expressions which lacks the concept of evaluation.
+ - [ID: 14] A variable is (merely) a pairing of a name to a changeable value (with a type). It is not stored inside the computer.
+ - [ID: 15] Primitive assignment stores equations or unresolved expressions.
+ - [ID: 16] Assignment moves a value from a variable to another.
+ - [ID: 17] The natural-language semantics of variable names affects which value gets assigned to which variable.
+ - [ID: 18] The order of declaration of variable names affects which value gets assigned to which variable.
+ - [ID: 19] There is no size or precision limit to the values we can store in a programming variable.
+ - [ID: 20] Incrementing a counter variable is an indivisible operation (no separate evaluation of right-hand side).
+ - [ID: 21] Primitive types (in Java) have no default value.
+ - [ID: 22] Unassigned variables of primitive type (in Java) have no memory allocated.
+
+=========================================
+
+INSTRUCTIONS FOR YOUR OUTPUT:
+1. Broad Category: (Identify which of the broad 'Topics' this error belongs to).
+2. Specific Misconception: (Select the exact 'Description' and its [ID] from the taxonomy list. If it absolutely does not fit any of them, output "NOVEL_DISCOVERY" and invent a highly accurate pedagogical name).
+3. Cognitive Flaw: (A 2-3 sentence explanation of what the students in this cluster are fundamentally misunderstanding).
+4. Pedagogical Fix: (How you would explain this concept to the students to correct the misconception).
+
+Here is the source code data for Cluster 0:
+--------------------------------------------------
+--- Submission: s374681224.java ---
+Model Flagged Subtree ID: subtree_14
+Source Code:
+class Main{
+public static void main(String[] a) {
+	for(int i=1;i<10;i++){
+		for(int j=1;j<10;j++){
+			System.out.println(i+"??"+j+"="+i*j);
+		}
+	}
+}
+}
+--------------------------------------------------
+--- Submission: s917941293.java ---
+Model Flagged Subtree ID: subtree_14
+Source Code:
+class Main{
+	public static void main(String[] args){
+		for(int i = 1;i < 10;i++){
+			for(int j = 1;j < 10;j++){
+				System.out.println(i + "+" + j + "=" + (i*j));
+			}
+		}
+	}
+}
+--------------------------------------------------
+--- Submission: s998535259.java ---
+Model Flagged Subtree ID: subtree_14
+Source Code:
+class Main{
+    public static void main(String[] a){
+for(int i=1;i<10;i++){
+for(int j=0;j<10;j++){
+System.out.println(i"*"j"="i*j);
+}
+}
+
+    }
+}
+--------------------------------------------------
