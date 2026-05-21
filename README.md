@@ -164,16 +164,6 @@ A Groq API key is required for the interpretation stage. Set it in `groq_cluster
 
 ---
 
-## Limitations
-
-- LLM outputs are **exploratory hypotheses**, not verified misconception identifications. No independent expert validation was conducted.
-- The pipeline uses **ground truth labels** (not model predictions) to filter submissions for downstream clustering — a production deployment would require improved detection accuracy to rely on predicted labels.
-- Four of twelve clusters could not be interpreted due to API failures during execution.
-- Problem descriptions sourced from Japanese platforms were translated automatically, which may have introduced inaccuracies in the LLM context.
-- The dataset is drawn from a competitive programming benchmark rather than a live CS1 course, which limits direct generalizability.
-
----
-
 ## Academic Context
 
 This project was developed as part of a Bachelor's thesis in Business Informatics at The German University in Cairo, 2026.
