@@ -158,7 +158,7 @@ pip install torch tree-sitter umap-learn hdbscan scikit-learn pandas numpy groq 
 pip install tree-sitter-java
 ```
 
-> The `Data/` directory is excluded from version control due to file size. To reproduce results, download the Java subset of the first 500 problems in [Project CodeNet](https://github.com/IBM/Project_CodeNet) and run the processing scripts in the order listed in the pipeline diagram above.
+> The `Data/` directory is mostly excluded from version control due to file size. To reproduce results, download the Java subset of the first 500 problems in [Project CodeNet](https://github.com/IBM/Project_CodeNet) and run the processing scripts in the order listed in the pipeline diagram above.
 
 A Groq API key is required for the interpretation stage. Set it in `groq_cluster_interpreter.py` or as an environment variable.
 
